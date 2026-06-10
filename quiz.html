@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Районы Берлина — тренажёр</title>
+    <link rel="stylesheet" href="/src/quiz.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Районы Берлина</h1>
+        <div id="modes">
+          <button class="mode-btn active" data-mode="name">Что это за район?</button>
+          <button class="mode-btn" data-mode="locate">Найди на карте</button>
+        </div>
+        <div id="score">
+          <span>✅ <strong id="correct">0</strong></span>
+          <span>❌ <strong id="wrong">0</strong></span>
+          <span>🔥 <strong id="streak">0</strong></span>
+        </div>
+      </header>
+
+      <p id="prompt"></p>
+
+      <div id="board">
+        <div id="map-wrap"><canvas id="map"></canvas></div>
+        <div id="options"></div>
+      </div>
+
+      <div id="footer">
+        <div id="feedback"></div>
+        <button id="next" hidden>Дальше →</button>
+      </div>
+    </div>
+    <script type="module" src="/src/quiz.js"></script>
+  </body>
+</html>
