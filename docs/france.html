@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Горы и холмы Германии</title>
+    <title>Горы и холмы Франции</title>
     <style>
 * { box-sizing: border-box; }
 
@@ -124,8 +124,8 @@ button#back:hover { background: #f2f2f2; }
       <a href="index.html">← Берлин</a>
       <a href="quiz.html">Районы</a>
       <a href="hills.html">Горы и холмы</a>
-      <a href="germany.html" class="active">Германия</a>
-      <a href="france.html">Франция</a>
+      <a href="germany.html">Германия</a>
+      <a href="france.html" class="active">Франция</a>
     </nav>
     <div id="app">
       <div id="canvas-wrap">
@@ -133,7 +133,7 @@ button#back:hover { background: #f2f2f2; }
         <img id="arm-badge" hidden alt="" />
       </div>
       <div class="toolbar">
-        <button id="back" hidden>← Все земли</button>
+        <button id="back" hidden>← Все регионы</button>
       </div>
       <div id="controls" hidden>
         <div class="ctl">
@@ -144,7 +144,7 @@ button#back:hover { background: #f2f2f2; }
         <button id="save" hidden>💾 Сохранить PNG</button>
       </div>
       <div id="empty-note" hidden>
-        В этой земле нет именованных вершин с указанной высотой в OpenStreetMap.
+        В этом регионе нет именованных вершин с указанной высотой в OpenStreetMap.
       </div>
     </div>
     <script>
@@ -576,9 +576,9 @@ function createHillsExplorer(config) {
 }
 
 createHillsExplorer({
-  dataBase: "germany/",
-  title: "ГОРЫ И ХОЛМЫ ГЕРМАНИИ",
-  pickSubtitle: "выберите федеральную землю — кликните по карте",
+  dataBase: "france/",
+  title: "ГОРЫ И ХОЛМЫ ФРАНЦИИ",
+  pickSubtitle: "выберите регион — кликните по карте",
 });
 
     </script>

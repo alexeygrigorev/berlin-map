@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Горы и холмы Франции</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="canvas-wrap">
+        <canvas id="map"></canvas>
+        <img id="arm-badge" hidden alt="" />
+      </div>
+      <div class="toolbar">
+        <button id="back" hidden>← Все регионы</button>
+      </div>
+      <div id="controls" hidden>
+        <div class="ctl">
+          <label for="ele">Минимальная высота: <strong id="ele-val">0</strong> м</label>
+          <input type="range" id="ele" min="0" max="125" step="1" value="0" />
+          <div class="hint" id="count-hint"></div>
+        </div>
+        <button id="save" hidden>💾 Сохранить PNG</button>
+      </div>
+      <div id="empty-note" hidden>
+        В этом регионе нет именованных вершин с указанной высотой в OpenStreetMap.
+      </div>
+    </div>
+    <script type="module" src="/src/france.js"></script>
+  </body>
+</html>

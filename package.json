@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "data": "node scripts/build-germany-data.mjs",
-    "predev": "node scripts/build-germany-data.mjs",
+    "data": "node scripts/build-country-data.mjs",
+    "predev": "node scripts/build-country-data.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

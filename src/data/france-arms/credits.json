@@ -1,0 +1,67 @@
+{
+  "auvergne-rhone-alpes": {
+    "title": "File:Blason Auvergne-Rhône-Alpes.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_Auvergne-Rh%C3%B4ne-Alpes.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "bourgogne-franche-comte": {
+    "title": "File:Blason région fr Bourgogne-Franche-Comté.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_r%C3%A9gion_fr_Bourgogne-Franche-Comt%C3%A9.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "bretagne": {
+    "title": "File:Blason region fr Bretagne.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_region_fr_Bretagne.svg",
+    "license": "Public domain"
+  },
+  "centre-val-de-loire": {
+    "title": "File:Blason région fr Centre-Val de Loire.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_r%C3%A9gion_fr_Centre-Val_de_Loire.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "corse": {
+    "title": "File:Blason Region Fr Corse.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_Region_Fr_Corse.svg",
+    "license": "CC BY-SA 3.0"
+  },
+  "grand-est": {
+    "title": "File:Blason du Grand Est.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_du_Grand_Est.svg",
+    "license": "Public domain"
+  },
+  "hauts-de-france": {
+    "title": "File:Escutcheon fr region Hauts-de-France.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Escutcheon_fr_region_Hauts-de-France.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "ile-de-france": {
+    "title": "File:Blason Île-de-France moderne 2.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_%C3%8Ele-de-France_moderne_2.svg",
+    "license": "CC BY-SA 3.0"
+  },
+  "normandie": {
+    "title": "File:Blason region fr Normandie.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_region_fr_Normandie.svg",
+    "license": "Public domain"
+  },
+  "nouvelle-aquitaine": {
+    "title": "File:Blason Nouvelle-Aquitaine.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_Nouvelle-Aquitaine.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "occitanie": {
+    "title": "File:Blason région fr Occitanie.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_r%C3%A9gion_fr_Occitanie.svg",
+    "license": "CC BY-SA 4.0"
+  },
+  "pays-de-la-loire": {
+    "title": "File:Blason région fr Pays-de-la-Loire.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_r%C3%A9gion_fr_Pays-de-la-Loire.svg",
+    "license": "CC BY-SA 3.0"
+  },
+  "provence-alpes-cote-d-azur": {
+    "title": "File:Blason région fr Provence-Alpes-Côte d'Azur.svg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blason_r%C3%A9gion_fr_Provence-Alpes-C%C3%B4te_d%27Azur.svg",
+    "license": "CC BY 2.5"
+  }
+}

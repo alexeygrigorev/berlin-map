@@ -6,12 +6,16 @@
 import { readFileSync, writeFileSync, mkdirSync, cpSync } from "fs";
 import { execSync } from "child_process";
 
-// regenerate the separately-loaded Germany data (public/germany/) from src/data
-execSync("node scripts/build-germany-data.mjs", { stdio: "inherit" });
+// regenerate the separately-loaded country data (public/<country>/) from src/data
+execSync("node scripts/build-country-data.mjs", { stdio: "inherit" });
 
 mkdirSync("docs", { recursive: true });
 const read = (p) => readFileSync(p, "utf8");
 const stripImports = (js) => js.replace(/^\s*import .*$/gm, "").trimStart();
+// for the shared-module pages: drop import lines AND the `export` keyword so the
+// helper + thin entry can be concatenated into one inline <script>.
+const stripModule = (js) =>
+  js.replace(/^\s*import .*$/gm, "").replace(/^export\s+/gm, "").trimStart();
 
 const page = ({ title, css, head = "", body, dataScript, appJs }) => `<!doctype html>
 <html lang="ru">
@@ -58,18 +62,23 @@ const hills = ${read("src/data/hills.json")};`,
 });
 writeFileSync("docs/hills.html", hillsHtml);
 
-// ---------- 1b. Germany hills (state picker → per-state hills) ----------
-const germanyHtml = page({
-  title: "Горы и холмы Германии",
-  css: read("src/germany.css") + NAV_CSS(),
-  body: `${nav("germany")}
+// ---------- 1b. Country hills explorers (region picker → per-region hills) ----------
+// Data is NOT inlined — the page fetches it from docs/<slug>/ at runtime
+// (states.json once, then hills/<slug>.json + arms/<slug>.png on click). The
+// shared explorer module + the thin per-country entry are concatenated inline.
+const explorerJs = stripModule(read("src/hills-explorer.js"));
+function countryExplorer({ slug, title, backLabel, emptyWord }) {
+  const html = page({
+    title,
+    css: read("src/hills-explorer.css") + NAV_CSS(),
+    body: `${nav(slug)}
     <div id="app">
       <div id="canvas-wrap">
         <canvas id="map"></canvas>
         <img id="arm-badge" hidden alt="" />
       </div>
       <div class="toolbar">
-        <button id="back" hidden>← Все земли</button>
+        <button id="back" hidden>← ${backLabel}</button>
       </div>
       <div id="controls" hidden>
         <div class="ctl">
@@ -80,17 +89,17 @@ const germanyHtml = page({
         <button id="save" hidden>💾 Сохранить PNG</button>
       </div>
       <div id="empty-note" hidden>
-        В этой земле нет именованных вершин с указанной высотой в OpenStreetMap.
+        В ${emptyWord} нет именованных вершин с указанной высотой в OpenStreetMap.
       </div>
     </div>`,
-  // data is NOT inlined here — germany.js fetches it from docs/germany/ at
-  // runtime (states.json once, then hills/<slug>.json + arms/<slug>.png on click)
-  dataScript: "",
-  appJs: stripImports(read("src/germany.js")),
-});
-writeFileSync("docs/germany.html", germanyHtml);
-// ship the separately-loaded data next to the page
-cpSync("public/germany", "docs/germany", { recursive: true });
+    dataScript: "",
+    appJs: explorerJs + "\n" + stripModule(read(`src/${slug}.js`)),
+  });
+  writeFileSync(`docs/${slug}.html`, html);
+  cpSync(`public/${slug}`, `docs/${slug}`, { recursive: true });
+}
+countryExplorer({ slug: "germany", title: "Горы и холмы Германии", backLabel: "Все земли", emptyWord: "этой земле" });
+countryExplorer({ slug: "france", title: "Горы и холмы Франции", backLabel: "Все регионы", emptyWord: "этом регионе" });
 
 // ---------- 2. Districts quiz ----------
 const quizHtml = page({
@@ -169,6 +178,11 @@ const landing = `<!doctype html>
           <h2>Горы и холмы Германии</h2>
           <p>Выбери федеральную землю и смотри все её вершины с фильтром по высоте.</p>
         </a>
+        <a class="card" href="france.html">
+          <div class="emoji">🇫🇷</div>
+          <h2>Горы и холмы Франции</h2>
+          <p>Выбери регион и смотри все его вершины с фильтром по высоте.</p>
+        </a>
       </div>
       <footer>Данные: © OpenStreetMap (ODbL). Гербы округов — Wikimedia Commons (общественное достояние).</footer>
     </div>
@@ -186,6 +200,7 @@ function nav(active) {
       ${link("quiz.html", "Районы", "quiz")}
       ${link("hills.html", "Горы и холмы", "hills")}
       ${link("germany.html", "Германия", "germany")}
+      ${link("france.html", "Франция", "france")}
     </nav>`;
 }
 function NAV_CSS() {
