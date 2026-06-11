@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         quiz: resolve(__dirname, "quiz.html"),
+        germany: resolve(__dirname, "germany.html"),
       },
     },
   },

@@ -3,7 +3,11 @@
 // needed to serve). docs/ is what GitHub Pages serves.
 //
 //   node build-site.mjs
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync, cpSync } from "fs";
+import { execSync } from "child_process";
+
+// regenerate the separately-loaded Germany data (public/germany/) from src/data
+execSync("node scripts/build-germany-data.mjs", { stdio: "inherit" });
 
 mkdirSync("docs", { recursive: true });
 const read = (p) => readFileSync(p, "utf8");
@@ -53,6 +57,40 @@ const hills = ${read("src/data/hills.json")};`,
   appJs: stripImports(read("src/main.js")),
 });
 writeFileSync("docs/hills.html", hillsHtml);
+
+// ---------- 1b. Germany hills (state picker → per-state hills) ----------
+const germanyHtml = page({
+  title: "Горы и холмы Германии",
+  css: read("src/germany.css") + NAV_CSS(),
+  body: `${nav("germany")}
+    <div id="app">
+      <div id="canvas-wrap">
+        <canvas id="map"></canvas>
+        <img id="arm-badge" hidden alt="" />
+      </div>
+      <div class="toolbar">
+        <button id="back" hidden>← Все земли</button>
+      </div>
+      <div id="controls" hidden>
+        <div class="ctl">
+          <label for="ele">Минимальная высота: <strong id="ele-val">0</strong> м</label>
+          <input type="range" id="ele" min="0" max="125" step="1" value="0" />
+          <div class="hint" id="count-hint"></div>
+        </div>
+        <button id="save" hidden>💾 Сохранить PNG</button>
+      </div>
+      <div id="empty-note" hidden>
+        В этой земле нет именованных вершин с указанной высотой в OpenStreetMap.
+      </div>
+    </div>`,
+  // data is NOT inlined here — germany.js fetches it from docs/germany/ at
+  // runtime (states.json once, then hills/<slug>.json + arms/<slug>.png on click)
+  dataScript: "",
+  appJs: stripImports(read("src/germany.js")),
+});
+writeFileSync("docs/germany.html", germanyHtml);
+// ship the separately-loaded data next to the page
+cpSync("public/germany", "docs/germany", { recursive: true });
 
 // ---------- 2. Districts quiz ----------
 const quizHtml = page({
@@ -126,6 +164,11 @@ const landing = `<!doctype html>
           <h2>Горы и холмы</h2>
           <p>Карта вершин Берлина с фильтром по высоте и экспортом в PNG.</p>
         </a>
+        <a class="card" href="germany.html">
+          <div class="emoji">🇩🇪</div>
+          <h2>Горы и холмы Германии</h2>
+          <p>Выбери федеральную землю и смотри все её вершины с фильтром по высоте.</p>
+        </a>
       </div>
       <footer>Данные: © OpenStreetMap (ODbL). Гербы округов — Wikimedia Commons (общественное достояние).</footer>
     </div>
@@ -142,6 +185,7 @@ function nav(active) {
       ${link("index.html", "← Берлин", "home")}
       ${link("quiz.html", "Районы", "quiz")}
       ${link("hills.html", "Горы и холмы", "hills")}
+      ${link("germany.html", "Германия", "germany")}
     </nav>`;
 }
 function NAV_CSS() {
